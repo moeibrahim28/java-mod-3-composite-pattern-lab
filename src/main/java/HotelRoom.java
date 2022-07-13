@@ -1,6 +1,12 @@
 class HotelRoom implements HotelRoomInterface {
-    public void book(String guestName) {
-        Logger.getInstance().log("Booked a room for " + guestName);
+    private int roomNumber;
+
+    public HotelRoom(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public void book(String guestName, int roomNumber) {
+        Logger.getInstance().log("Booked room#"+roomNumber+" for " + guestName);
     }
 
     public void clean() {

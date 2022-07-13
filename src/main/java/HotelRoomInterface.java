@@ -1,4 +1,4 @@
 interface HotelRoomInterface {
-    void book(String guestName);
+    void book(String guestName, int roomNumber);
     void clean();
 }

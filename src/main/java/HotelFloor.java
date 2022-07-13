@@ -2,12 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 class HotelFloor implements HotelRoomInterface {
+    private int floorNumber;
     private final List<HotelRoomInterface> hotelRooms = new ArrayList<HotelRoomInterface>();
 
+    public HotelFloor(int floorNumber) {
+        this.floorNumber = floorNumber;
+    }
 
-    public void book(String guestName) {
+    public void book(String guestName, int roomNumber) {
         hotelRooms.forEach(child -> {
-            child.book(guestName);
+            child.book(guestName, roomNumber);
         });
     }
 
