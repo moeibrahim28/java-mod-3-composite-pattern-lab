@@ -15,6 +15,10 @@ class HotelFloor implements HotelRoomInterface {
         });
     }
 
+    public int getFloorNumber() {
+        return floorNumber;
+    }
+
     public void clean() {
         hotelRooms.forEach(child -> child.clean());
     }

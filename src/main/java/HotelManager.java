@@ -1,40 +1,47 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class HotelManager {
     public static void main(String[] args) {
         Logger.getInstance().log("Managing hotel...");
-        Hotel hotel = new Hotel();
+        int NUMBER_OF_FLOORS = 3;
+        int NUMBER_OF_ROOMS = 5;
+        int floorNumber = 1;
+        // create hotel rooms
+        List<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
+        List<HotelFloor> hotelFloors = new ArrayList<>();
 
-        HotelFloor hotelFloor1 = new HotelFloor(001);
-        HotelFloor hotelFloor2 = new HotelFloor(002);
-        HotelFloor hotelFloor3 = new HotelFloor(003);
-        hotelFloor1.addHotelRoom(new HotelRoom(101));
-        hotelFloor1.addHotelRoom(new HotelRoom(102));
-        hotelFloor1.addHotelRoom(new HotelRoom(103));
-        hotelFloor1.addHotelRoom(new HotelRoom(104));
-        hotelFloor1.addHotelRoom(new HotelRoom(105));
-        hotelFloor2.addHotelRoom(new HotelRoom(201));
-        hotelFloor2.addHotelRoom(new HotelRoom(202));
-        hotelFloor2.addHotelRoom(new HotelRoom(203));
-        hotelFloor2.addHotelRoom(new HotelRoom(204));
-        hotelFloor2.addHotelRoom(new HotelRoom(205));
-        hotelFloor3.addHotelRoom(new HotelRoom(301));
-        hotelFloor3.addHotelRoom(new HotelRoom(302));
-        hotelFloor3.addHotelRoom(new HotelRoom(303));
-        hotelFloor3.addHotelRoom(new HotelRoom(304));
-        hotelFloor3.addHotelRoom(new HotelRoom(305));
+        // create hotel floors
+        for (int i = 0; i < (NUMBER_OF_FLOORS * NUMBER_OF_ROOMS); i++) {
+            if (i % NUMBER_OF_FLOORS == 0 && i != 0)
+                floorNumber++;
+            HotelRoom hotelRoom = new HotelRoom((floorNumber * 20) + (i % NUMBER_OF_ROOMS) + i);
+            hotelRooms.add(hotelRoom);
+            hotelFloors.get(floorNumber - 1).addHotelRoom(hotelRoom);
+        }
 
-        hotel.addFloor(hotelFloor1);
-        hotel.addFloor(hotelFloor2);
-        hotel.addFloor(hotelFloor3);
+        RoomCheckinObserver emailService = new HotelEmailService();
+        RoomCheckinObserver notificationService = new HotelPushNotificationService();
+        for (HotelRoom hotelRoom : hotelRooms) {
+            hotelRoom.addCheckinObserver(emailService);
+            hotelRoom.addCheckinObserver(notificationService);
+        }
 
-        hotel.book("Terrence", 103);
-        hotel.book("Larry", 101);
-        hotel.book("Mike", 304);
-        hotel.book("Joseph", 202);
+        final String[] guests = {"Mike", "Moe", "Larry", "Gene"};
+        Random random = new Random();
+        for (String guest : guests) {
+            int randomRoom= random.nextInt(hotelRooms.size());
+            HotelRoom hotelRoomBooked=hotelRooms.get(randomRoom);
+            hotelRoomBooked.book(guest, randomRoom);
+            hotelRoomBooked.checkIn(guest);
+
+        }
 
     }
-
-
 }
+
+
 
 
 // create hotel rooms
