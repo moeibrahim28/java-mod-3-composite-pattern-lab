@@ -11,12 +11,14 @@ public class HotelManager {
         // create hotel rooms
         List<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
         List<HotelFloor> hotelFloors = new ArrayList<>();
+        hotelFloors.add(new HotelFloor(floorNumber));
 
         // create hotel floors
         for (int i = 0; i < (NUMBER_OF_FLOORS * NUMBER_OF_ROOMS); i++) {
-            if (i % NUMBER_OF_FLOORS == 0 && i != 0)
+            if (i % NUMBER_OF_ROOMS == 0 && i != 0){
                 floorNumber++;
-            HotelRoom hotelRoom = new HotelRoom((floorNumber * 20) + (i % NUMBER_OF_ROOMS) + i);
+            hotelFloors.add(new HotelFloor(floorNumber));}
+            HotelRoom hotelRoom = new HotelRoom((floorNumber * 10) + (i % NUMBER_OF_ROOMS) + 1);
             hotelRooms.add(hotelRoom);
             hotelFloors.get(floorNumber - 1).addHotelRoom(hotelRoom);
         }
@@ -28,11 +30,11 @@ public class HotelManager {
             hotelRoom.addCheckinObserver(notificationService);
         }
 
-        final String[] guests = {"Mike", "Moe", "Larry", "Gene"};
+        final String[] guests = { "Mike", "Moe", "Larry", "Gene" };
         Random random = new Random();
         for (String guest : guests) {
-            int randomRoom= random.nextInt(hotelRooms.size());
-            HotelRoom hotelRoomBooked=hotelRooms.get(randomRoom);
+            int randomRoom = random.nextInt(hotelRooms.size());
+            HotelRoom hotelRoomBooked = hotelRooms.get(randomRoom);
             hotelRoomBooked.book(guest, randomRoom);
             hotelRoomBooked.checkIn(guest);
 
@@ -41,13 +43,9 @@ public class HotelManager {
     }
 }
 
-
-
-
 // create hotel rooms
 // create hotel floors
 // add hotel rooms to hotel floors
-// take actions on rooms and floors and examine your output to ensure you implemented the desired
+// take actions on rooms and floors and examine your output to ensure you
+// implemented the desired
 // behaviors
-
-

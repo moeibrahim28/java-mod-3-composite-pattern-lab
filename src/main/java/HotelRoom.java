@@ -10,7 +10,7 @@ class HotelRoom implements HotelRoomInterface {
     }
 
     public void book(String guestName, int roomNumber) {
-        Logger.getInstance().log("Booked a room for " + guestName);
+        Logger.getInstance().log("Booked room# " + roomNumber+ " for " + guestName);
     }
 
 
@@ -28,7 +28,7 @@ class HotelRoom implements HotelRoomInterface {
     }
 
     public void checkIn(String guestName) {
-        Logger.getInstance().log(guestName + "checked in");
+        Logger.getInstance().log(guestName + " checked in");
         checkinObservers.forEach((checkinObserver -> checkinObserver.update(guestName)));
     }
 }
